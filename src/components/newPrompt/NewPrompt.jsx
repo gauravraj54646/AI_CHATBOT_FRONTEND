@@ -17,12 +17,10 @@ const NewPrompt = ({ data }) => {
   });
 
   const chat = model.startChat({
-    history: [                     // data?.history
-      data?.history.map(({ role, parts }) => ({
-        role,
-        parts: [{ text: parts[0].text }],
-      })),
-    ],
+    history: data?.history?.map(({ role, parts }) => ({
+      role,
+      parts: [{ text: parts[0].text }],
+    })) || [],
     generationConfig: {
       // maxOutputTokens: 100,
     },
@@ -38,8 +36,9 @@ const NewPrompt = ({ data }) => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: async() => {
-      return fetch(`${import.meta.env.VITE_API_URL}/api/chats/${data._id}`, {
+    mutationFn: () => {
+      // return fetch(`${import.meta.env.VITE_API_URL}/api/chats/${data._id}`, {
+        return fetch(`/api/chats/${data._id}`, {
         method: "PUT",
         credentials: "include",
         headers: {
@@ -118,14 +117,14 @@ const NewPrompt = ({ data }) => {
     <>
       {/* ADD NEW CHAT */}
       {img.isLoading && <div className="">Loading...</div>}
-      {img.dbData?.filePath && (
+      {img.dbData?.filePath &&(
         <IKImage
           urlEndpoint={import.meta.env.VITE_IMAGE_KIT_ENDPOINT}
-          path={img.dbData?.filePath}
+          path={img.dbData.filePath}
           width="380"
           transformation={[{ width: 380 }]}
         />
-      )}
+      ) }
       {question && <div className="message user">{question}</div>}
       {answer && (
         <div className="message">
@@ -146,3 +145,4 @@ const NewPrompt = ({ data }) => {
 };
 
 export default NewPrompt;
+    
