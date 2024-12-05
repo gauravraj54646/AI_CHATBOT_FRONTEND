@@ -35,8 +35,8 @@ const ChatList = () => {
       <div className="upgrade">
         <img src="/logo.png" alt="" />
         <div className="texts">
-          <span>Upgrade to Lama AI Pro</span>
-          <span>Get unlimited access to all features</span>
+          <span>Upgrade to ASTRABOT</span>
+          <span>Access to All features</span>
         </div>
       </div>
     </div>
